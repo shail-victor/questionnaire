@@ -2,9 +2,10 @@ from user.user_controller import user_api
 
 from flask import Flask
 from framework.get_properties import read_properties_file
+from flask_cors import CORS, cross_origin
 
 app = Flask(__name__)
-
+CORS(app)
 
 if __name__ == "__main__":
 
