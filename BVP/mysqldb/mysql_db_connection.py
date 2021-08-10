@@ -3,7 +3,7 @@ import pandas as pd
 from sqlalchemy import create_engine
 
 
-def connect_mysqldb(dbname, hostname="localhost", username="root", password="root"):
+def connect_mysqldb(dbname, hostname="localhost", username="root", password="root1234"):
     mydb_connection = mysql.connector.connect(host=hostname, port=3306, user=username, password=password,database=dbname)
     if mydb_connection:
         print("Connected to Mysql")
@@ -40,7 +40,7 @@ def insert_data_to_db(query, value, dbname):
 def insert_dataframe_to_db(df, table_name, db_name):
 
     engine = create_engine("mysql+mysqlconnector://{user}:{pw}@{host}/{db}"
-                           .format(host="localhost", db=db_name, user="root", pw="root"))
+                           .format(host="localhost", db=db_name, user="root", pw="root1234"))
 
     #engine = create_engine("mysql+pymysql://{user}:{pw}@localhost/{db}".format(user="root", pw="root1234", db=db_name))
 
