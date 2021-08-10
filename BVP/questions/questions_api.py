@@ -37,8 +37,11 @@ def get_questions_details(user_id, question_no, timestamp):
     user_year_id = user_id + "_" + str(date.today().year)
     get_query = f"select * from {table_name} where user_year_id = '{user_year_id}'"
     question_df = get_data_from_db(get_query, "bvp_db")
-    question_df = question_df.drop(["user_year_id", "user_id"], axis=1)
-    response = question_df.to_dict("records")
+    if not question_df.empty:
+        question_df = question_df.drop(["user_year_id", "user_id"], axis=1)
+        response = question_df.to_dict("records")
+    else:
+        response=[{}]
     return response
 
 
