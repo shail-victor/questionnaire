@@ -1,15 +1,17 @@
 from user.user_controller import user_api
-
+from questions.question_controller import question_api
 from flask import Flask
 from framework.get_properties import read_properties_file
-from flask_cors import CORS, cross_origin
+from flask_cors import CORS
 
 app = Flask(__name__)
 CORS(app)
 
 if __name__ == "__main__":
-
+    # registering user API's
     app.register_blueprint(user_api)
+    # Registering questions API's
+    app.register_blueprint(question_api)
     propList = read_properties_file('bvp_config.properties')
     if len(propList['host']) > 0:
         if len(propList['port']) > 0:

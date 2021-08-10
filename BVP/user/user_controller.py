@@ -1,12 +1,9 @@
-import json
-import time
-import traceback
 
-import simplejson
 from flask import request, Blueprint
 from user.user_api import user_info, register_user
 
 user_api = Blueprint('user_api', __name__)
+
 
 """API call to check valid user"""
 

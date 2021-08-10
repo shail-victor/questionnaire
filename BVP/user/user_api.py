@@ -3,17 +3,18 @@ from mysqldb.mysql_db_connection import get_data_from_db, insert_data_to_db
 
 
 def user_info(email_id, password, timestamp):
-    query = f"select password from users where email_id ='{email_id}'"
+    query = f"select user_id, password from users where email_id ='{email_id}'"
     dbname = "bvp_db"
     result = get_data_from_db(query, dbname)
     if not result.empty:
         db_password = result["password"][0]
+        user_id = str(result["user_id"][0])
         if db_password == password:
-            status = {"status": "Success", "reason":""}
+            status = {"status": "Success", "reason":"", "user_id": user_id}
         else:
-            status = {"status": "Failure", "reason":"invalid password"}
+            status = {"status": "Failure", "reason":"invalid password", "user_id": ""}
     else:
-        status = {"status": "Failure", "reason": "user does not exist"}
+        status = {"status": "Failure", "reason": "user does not exist", "user_id": ""}
     return status
 
 
