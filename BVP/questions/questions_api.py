@@ -1,4 +1,3 @@
-from constants import questions_dict
 from pathlib import Path
 import pandas as pd
 from datetime import date
@@ -41,7 +40,7 @@ def get_questions_details(user_id, question_no, timestamp):
         question_df = question_df.drop(["user_year_id", "user_id"], axis=1)
         response = question_df.to_dict("records")
     else:
-        response=[{}]
+        response=[]
     return response
 
 
