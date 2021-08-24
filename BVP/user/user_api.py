@@ -3,18 +3,19 @@ from mysqldb.mysql_db_connection import get_data_from_db, insert_data_to_db
 
 
 def user_info(email_id, password, timestamp):
-    query = f"select user_id, password from users where email_id ='{email_id}'"
+    query = f"select user_id, password, role from users where email_id ='{email_id}'"
     dbname = "bvp_db"
     result = get_data_from_db(query, dbname)
     if not result.empty:
         db_password = result["password"][0]
         user_id = str(result["user_id"][0])
+        role = result["role"][0]
         if db_password == password:
-            status = {"status": "Success", "reason":"", "user_id": user_id}
+            status = {"status": "Success", "reason":"", "user_id": user_id, "role": role}
         else:
-            status = {"status": "Failure", "reason":"invalid password", "user_id": ""}
+            status = {"status": "Failure", "reason":"Invalid Password", "user_id": "", "role": ""}
     else:
-        status = {"status": "Failure", "reason": "user does not exist", "user_id": ""}
+        status = {"status": "Failure", "reason": "User does not exist", "user_id": "", "role":""}
     return status
 
 
@@ -38,4 +39,27 @@ def register_user(user_details, timestamp):
 
     return status
 
+
+def get_all_users(timestamp):
+    query = f"select user_id,college_name, name, email_id from users"
+    dbname = "bvp_db"
+    result = get_data_from_db(query, dbname)
+    response =[]
+    if not result.empty:
+        result["co-ordinator"] = result["college_name"]+", "+result["email_id"]
+        result = result.drop(columns=["college_name", "email_id"], axis=1)
+        response = result.to_dict("records")
+
+    return response
+
+
+def get_all_years(user_id, timestamp):
+    query = f"SELECT distinct user_year_id FROM question_28 where user_id='{user_id}'"
+    dbname = "bvp_db"
+    result = get_data_from_db(query, dbname)
+    response = []
+    if not result.empty:
+        result["year"] = result["user_year_id"].apply(lambda user_year_id: int(user_year_id.split("_")[1]))
+        response = result["year"].sort_values().tolist()
+    return response
 
