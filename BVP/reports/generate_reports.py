@@ -5,7 +5,7 @@ from io import BytesIO
 
 
 
-def download_report(user_id, year, timestamp):
+def download_report(user_id, year, college_name, timestamp):
     mydb_connection = None
     mycursor = None
 
@@ -26,7 +26,7 @@ def download_report(user_id, year, timestamp):
             {'text_wrap': True, 'bold': 1, 'border': 1, 'align': 'center', 'valign': 'vcenter',
              'fg_color': '#E59866', 'font_color': 'blue', 'font_size': 26})
 
-        worksheet.merge_range('E9:T11', "Criterion III – Research, Innovations and Extension ", criteria_format)
+        worksheet.merge_range('E9:T14', f"Criterion III – Research, Innovations and Extension\n {college_name} ", criteria_format)
 
         for index, row in question_data.iterrows():
             table_name = "question" + "_" + str(row["id"])
@@ -35,7 +35,6 @@ def download_report(user_id, year, timestamp):
 
             if "_" in str(row["id"]):
                 row["id"] = row["id"].replace("_", ".")
-
 
             if not result_df.empty:
                 print(f"data found for table: {table_name}")

@@ -46,7 +46,7 @@ def get_all_users(timestamp):
     result = get_data_from_db(query, dbname)
     response =[]
     if not result.empty:
-        result["co-ordinator"] = result["college_name"]+", "+result["email_id"]
+        result["co_ordinator"] = result["college_name"]+", "+result["email_id"]
         result = result.drop(columns=["college_name", "email_id"], axis=1)
         response = result.to_dict("records")
 

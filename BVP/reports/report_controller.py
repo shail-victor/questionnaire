@@ -10,6 +10,6 @@ def report():
     user_id = request.headers.get("user_id")
     year = request.headers.get("year")
     college_name = request.headers.get("college_name")
-    response = download_report(user_id, year, timestamp)
+    response = download_report(user_id, year, college_name, timestamp)
     return send_file(response, attachment_filename=college_name+"_"+year+".xlsx", as_attachment=True)
 
