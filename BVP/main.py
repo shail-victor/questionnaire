@@ -14,7 +14,7 @@ if __name__ == "__main__":
     # Registering questions API's
     app.register_blueprint(question_api)
     app.register_blueprint(report_api)
-    propList = read_properties_file('BVP/bvp_config.properties')
+    propList = read_properties_file('bvp_config.properties')
     if len(propList['host']) > 0:
         if len(propList['port']) > 0:
             print("Running app with both host and port")
