@@ -15,17 +15,20 @@ if __name__ == "__main__":
     # Registering questions API's
     app.register_blueprint(question_api)
     app.register_blueprint(report_api)
-    propList = read_properties_file('bvp_config.properties')
-    if len(propList['host']) > 0:
-        if len(os.environ.get("PORT", propList['port'])) > 0:
-            print("Running app with both host and port")
-            app.run(host=propList['host'], port=int(os.environ.get("PORT", propList['port'])), threaded=True)
-        else:
-            print("Running app with host")
-            app.run(host=propList['host'], threaded=True)
-    elif len(os.environ.get("PORT", propList['port'])) > 0:
-        print("Running app with port")
-        app.run(port=int(os.environ.get("PORT", propList['port'])), threaded=True)
-    else:
-        print("Running app with default settings")
-        app.run(threaded=True)
+    #propList = read_properties_file('bvp_config.properties')
+    # if len(propList['host']) > 0:
+    #     if len(os.environ.get("PORT", propList['port'])) > 0:
+    #         print("Running app with both host and port")
+    #         app.run(host=propList['host'], port=int(os.environ.get("PORT", propList['port'])), threaded=True)
+    #     else:
+    #         print("Running app with host")
+    #         app.run(host=propList['host'], threaded=True)
+    # elif len(os.environ.get("PORT", propList['port'])) > 0:
+    #     print("Running app with port")
+    #     app.run(port=int(os.environ.get("PORT", propList['port'])), threaded=True)
+    # else:
+    #     print("Running app with default settings")
+    #     app.run(threaded=True)
+
+    port = int(os.environ.get("PORT", 5000))
+    app.run(host='0.0.0.0', port=port)
