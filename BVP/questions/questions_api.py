@@ -4,6 +4,7 @@ from datetime import date
 from mysqldb.mysql_db_connection import insert_dataframe_to_db, delete_records_from_db, get_data_from_db, insert_data_to_db
 from werkzeug.utils import secure_filename
 import os
+from constants import criteria3_db_name
 
 
 def allowed_file(filename):
@@ -19,12 +20,11 @@ def question_details(request_body, timestamp):
     request_df["user_year_id"] = request_df["user_id"]+"_" + str(date.today().year)
     user_year_id = request_df["user_year_id"][0]
     table_name = "question_" + q_no
-    db_name = "bvp_db"
     delete_query = f"DELETE FROM {table_name} WHERE user_year_id='{user_year_id}'"
     # deleting records of user_year_id
-    record_count = delete_records_from_db(delete_query, db_name)
+    record_count = delete_records_from_db(delete_query, criteria3_db_name)
     # adding new records
-    response = insert_dataframe_to_db(request_df, table_name, db_name)
+    response = insert_dataframe_to_db(request_df, table_name, criteria3_db_name)
     status = {"status": "Failure"}
     if response:
         status = {"status": "Success"}
@@ -35,7 +35,7 @@ def get_questions_details(user_id, question_no, timestamp):
     table_name = "question_" + question_no
     user_year_id = user_id + "_" + str(date.today().year)
     get_query = f"select * from {table_name} where user_year_id = '{user_year_id}'"
-    question_df = get_data_from_db(get_query, "bvp_db")
+    question_df = get_data_from_db(get_query, criteria3_db_name)
     if not question_df.empty:
         question_df = question_df.drop(["user_year_id", "user_id"], axis=1)
         response = question_df.to_dict("records")
@@ -65,7 +65,7 @@ def upload_files_to_server(request):
                 file.save(file_path)
                 values.append((user_year_id, user_id,question_no, file_path))
 
-        row_count = insert_data_to_db(insert_query, values, dbname="bvp_db")
+        row_count = insert_data_to_db(insert_query, values, dbname=criteria3_db_name)
         if row_count:
             status = {"status": "Success"}
 
