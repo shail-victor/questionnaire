@@ -19,4 +19,4 @@ if __name__ == "__main__":
     app.register_blueprint(question_api)
     app.register_blueprint(report_api)
     print("searching for URL")
-    app.run()
+    app.run(threaded=True)
