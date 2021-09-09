@@ -9,9 +9,6 @@ import os
 app = Flask(__name__)
 CORS(app)
 
-@app.route("/")
-def home_view():
-        return "<h1>Welcome to Geeks for Geeks</h1>"
 
 if __name__ == "__main__":
     # registering user API's
@@ -35,4 +32,5 @@ if __name__ == "__main__":
     #     app.run(threaded=True)
 
     #port = int(os.environ.get("PORT", 5000))
+    print("searching for URL")
     app.run()
