@@ -18,4 +18,4 @@ if __name__ == "__main__":
     app.register_blueprint(report_api)
     print("searching for URL")
     from os import environ
-    app.run(debug=False, port=environ.get("PORT", 5000))
+    app.run(threaded=True, debug=False, port=environ.get("PORT", 5000))
