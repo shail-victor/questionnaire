@@ -7,14 +7,12 @@ from flask_cors import CORS
 import os
 
 app = Flask(__name__)
-#CORS(app)
-
-
-app.register_blueprint(user_api)
+CORS(app)
 
 
 if __name__ == "__main__":
     # registering user API's
+    app.register_blueprint(user_api)
     # Registering questions API's
     app.register_blueprint(question_api)
     app.register_blueprint(report_api)
