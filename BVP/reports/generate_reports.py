@@ -2,6 +2,7 @@ import pandas as pd
 from mysqldb.mysql_db_connection import connect_mysqldb
 from reports.question_data import questions_list
 from io import BytesIO
+from constants import criteria3_db_name
 
 
 
@@ -14,7 +15,7 @@ def download_report(user_id, year, college_name, timestamp):
         question_data = pd.DataFrame(questions_list,
                                      columns=['id', "questionid", 'question', 'columnDefs', 'isMultipleTable',
                                               "TableHeading"])
-        mydb_connection = connect_mysqldb("bvp_db")
+        mydb_connection = connect_mysqldb(criteria3_db_name)
         mycursor = mydb_connection.cursor()
 
         output = BytesIO()
