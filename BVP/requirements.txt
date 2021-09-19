@@ -19,4 +19,5 @@ six==1.16.0
 SQLAlchemy==1.4.22
 typing-extensions==3.10.0.2
 Werkzeug==2.0.1
+XlsxWriter==3.0.1
 zipp==3.5.0
