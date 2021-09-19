@@ -39,7 +39,7 @@ def register_user(user_details, timestamp):
 
 
 def get_all_users(timestamp):
-    query = f"select user_id,college_name, name, email_id from users"
+    query = f"select user_id,college_name, name, email_id from users where role='Coordinator'"
     result = get_data_from_db(query, criteria3_db_name)
     response =[]
     if not result.empty:
