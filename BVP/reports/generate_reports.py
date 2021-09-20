@@ -5,7 +5,6 @@ from io import BytesIO
 from constants import criteria3_db_name
 
 
-
 def download_report(user_id, year, college_name, timestamp):
     mydb_connection = None
     mycursor = None
