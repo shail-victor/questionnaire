@@ -12,9 +12,9 @@ def user_info(email_id, password, timestamp):
         if db_password == password:
             status = {"status": "Success", "reason":"", "user_id": user_id, "role": role}
         else:
-            status = {"status": "Failure", "reason":"Invalid Password", "user_id": "", "role": ""}
+            status = {"status": "Failure", "reason":"Incorrect username or password.", "user_id": "", "role": ""}
     else:
-        status = {"status": "Failure", "reason": "User does not exist", "user_id": "", "role":""}
+        status = {"status": "Failure", "reason": "Incorrect username or password.", "user_id": "", "role":""}
     return status
 
 
@@ -39,7 +39,7 @@ def register_user(user_details, timestamp):
 
 
 def get_all_users(timestamp):
-    query = f"select user_id,college_name, name, email_id from users"
+    query = f"select user_id,college_name, name, email_id from users where role='Coordinator'"
     result = get_data_from_db(query, criteria3_db_name)
     response =[]
     if not result.empty:

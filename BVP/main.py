@@ -14,6 +14,6 @@ app.register_blueprint(report_api)
 
 
 if __name__ == "__main__":
-    print(app.url_map)
+    #print(app.url_map)
     from os import environ
     app.run(threaded=True, debug=False, port=environ.get("PORT", 5000))
